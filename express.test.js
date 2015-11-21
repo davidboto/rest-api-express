@@ -66,7 +66,6 @@ describe('rest auth api', function(done){
 
 });
 
-console.log('toooooooookennnn: ' + token);
 describe('express rest api server', function(){
   var id
 
@@ -84,6 +83,17 @@ describe('express rest api server', function(){
         done()
       })
   })
+
+  it('retrieves an object using an invalid token', function(done){
+    superagent.get('http://localhost:3000/api/v1/collections/test/'+id + '?token=' + token + "invalid")
+      .end(function(e, res){
+        //console.log(res.body)
+        expect(e).to.eql(null)
+        expect(res.body.success).to.eql(false); // Authentication failed; Should expect 'success: false'
+        done();
+      })
+  })
+
 
   it('retrieves an object', function(done){
     superagent.get('http://localhost:3000/api/v1/collections/test/'+id + '?token=' + token)

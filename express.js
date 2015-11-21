@@ -12,7 +12,12 @@ app.use(logger('dev'))
 var db = mongoskin.db('mongodb://@localhost:27017/test', {safe:true})
 
 app.get('/', function(req, res, next) {
-  res.send('please select a collection, e.g., /collections/messages')
+  var response = 'Please select a collection, e.g., /api/v1/collections/messages <br>'
+  response += '<b>/signup </b>- HTTP Post request to create create a user credentials. Expected fields: \'username\' and \'password\'.<br>'
+  response += '<b>/authenticate </b>- HTTP Post request to grab a token. Expected fields: \'username\' and \'password\'.'
+
+  res.send(response);
+
 })
 
 // Create a credential (username and password)
