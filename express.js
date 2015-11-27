@@ -59,7 +59,7 @@ app.param('collectionName', function(req, res, next, collectionName){
 
 // Verify if user's token for routes /api/v1/* is valid.
 app.use('/api/v1/', function(req, res, next){
-  console.log('ass' + req);
+
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   // if found
@@ -71,6 +71,7 @@ app.use('/api/v1/', function(req, res, next){
           message: 'Failed to authenticate token.' 
         })
       } else {
+        // passing user's information to the next middleware
         req.decoded = decoded;
         next();
       }
